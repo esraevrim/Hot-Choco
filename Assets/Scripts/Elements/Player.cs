@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Player : MonoBehaviour
     private Vector2 movement;
     public bool isDecorationCollected;
     private Interactable currentInteractable;
-
+    public bool canMove = true;
+    public Image targetImageObject;
+    public Sprite gameOverScreen;
+    public Button gameOverButton;
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
@@ -18,8 +22,11 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
+        if (canMove) 
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+        }
         if (Input.GetKeyDown(KeyCode.E) && currentInteractable != null)
         {
             currentInteractable.Interact();
@@ -39,6 +46,14 @@ public class Player : MonoBehaviour
             currentInteractable = interactableObj;
             Debug.Log("Etkileþime girmek için E'ye bas.");
         }
+    }
+    public void GameOver()
+    {
+        canMove = false;
+        targetImageObject.sprite = gameOverScreen;
+        gameOverButton.gameObject.SetActive(true);
+        targetImageObject.gameObject.SetActive(true);
+
     }
 
     private void OnTriggerExit2D(Collider2D other)
