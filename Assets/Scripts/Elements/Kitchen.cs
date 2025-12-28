@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Kitchen : MonoBehaviour,Interactable
 {
     private bool canWork = false;
-    public Image kitchenImage, plate,jar,table, cookie;
+    public Image kitchenImage, plate,jar,table, cookie,milk;
     public Sprite[] imageArray;
     public Player player;
     public int currentIndex =0;
@@ -42,6 +42,7 @@ public class Kitchen : MonoBehaviour,Interactable
         table.gameObject.SetActive(true); 
         plate.gameObject.SetActive(true);
         cookie.gameObject.SetActive(true);
+        milk.gameObject.SetActive(true);    
     }
 
     public void HideImage()
@@ -51,5 +52,6 @@ public class Kitchen : MonoBehaviour,Interactable
         table.gameObject.SetActive(false);
         plate.gameObject.SetActive(false);
         cookie.gameObject.SetActive(false); 
+        milk.gameObject.SetActive(false);
     }
 }
