@@ -6,7 +6,7 @@ public class Bed : MonoBehaviour,Interactable
     public Image targetBedImage;
     public Sprite[] imageArray;
     public Player player;
-    private float xPosition;
+    private float xPosition,yPosition;
     public bool canTidy=false,completed=false;
     public Sprite finalBed;
     private Vector2 startPos, currentPos, differencePos;
@@ -19,7 +19,7 @@ public class Bed : MonoBehaviour,Interactable
     {
         if (canTidy == false)
         {
-            ShowImage((int)xPosition);
+            ShowImage((int)xPosition+(int)yPosition);
             canTidy = true;
             player.canMove = false;
         }
@@ -54,14 +54,15 @@ public class Bed : MonoBehaviour,Interactable
             {
                 currentPos = Input.mousePosition;
                 differencePos = currentPos - startPos;
-                xPosition = ((float)differencePos.x / Screen.width) * -10;
+                xPosition = ((float)differencePos.x / Screen.width) * -5;
+                yPosition = ((float)(differencePos.y / Screen.height) * 5);
               
             }
-            if ((int)xPosition < imageArray.Length)
+            if ((int)xPosition+(int)yPosition < imageArray.Length)
             {
-                ShowImage((int)xPosition);
+                ShowImage((int)xPosition+(int)yPosition);
             }
-            if((int)xPosition == 2)
+            if((int)xPosition+(int)yPosition == 4)
             {
                 completed = true;
                 GetComponent<SpriteRenderer>().sprite = finalBed;

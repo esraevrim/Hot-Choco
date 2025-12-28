@@ -7,6 +7,5 @@ public class ButtonManager : MonoBehaviour
     {
         Scene CurrentScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(CurrentScene.buildIndex);
-
     }
 }

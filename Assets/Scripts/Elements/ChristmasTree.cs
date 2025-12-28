@@ -4,14 +4,14 @@ using UnityEngine.UI;
 using TMPro;
 public class ChristmasTree : MonoBehaviour, Interactable
 {
-    public Image targetImageObject;
+    public Image targetImageObject,krampusImage,BacgroundImage;
     public Sprite[] imageArray;
     public Player player;
     public int currentIndex = 0;
     public bool canDecorate, krampus,timeRunning=false;
     public Sprite finalTree;
     private Vector2 startPos, currentPos, differencePos;
-    private float xPosition,remainingTime=15;
+    private float xPosition,remainingTime=15, timePassed=0f;
     private void Start()
     {
         targetImageObject.gameObject.SetActive(false);
@@ -23,12 +23,14 @@ public class ChristmasTree : MonoBehaviour, Interactable
             ShowImage(currentIndex);
             canDecorate = true;
             player.canMove = false;
+            BacgroundImage.gameObject.SetActive(true);
         }
         else if(!krampus)
         { 
             HideImage();
             canDecorate = false;
             player.canMove = true;
+            BacgroundImage.gameObject.SetActive(false);
         }
 
     }
@@ -43,7 +45,7 @@ public class ChristmasTree : MonoBehaviour, Interactable
                 if(currentIndex ==3)
                 {
                     krampus = true;
-                    
+                    krampusImage.gameObject.SetActive(true);
                 }
 
             }
@@ -65,7 +67,6 @@ public class ChristmasTree : MonoBehaviour, Interactable
                         currentPos = Input.mousePosition;
                         differencePos = currentPos - startPos;
                         xPosition = ((float)differencePos.x / Screen.width) * -10;
-                        print(currentIndex);
 
                     }
                     if ((int)xPosition < imageArray.Length)
@@ -75,19 +76,24 @@ public class ChristmasTree : MonoBehaviour, Interactable
                             ShowImage(currentIndex + (int)xPosition);
                         }
                     }
-                    if (currentIndex + (int)xPosition == 7)
+                    if (currentIndex + (int)xPosition == 6)
                     {
                         currentIndex = currentIndex + (int)xPosition;
+                        krampusImage.gameObject.SetActive(false);
                         krampus = false;
                     }
                     remainingTime -= Time.deltaTime;
-                    print(remainingTime);
                 }
                else if (remainingTime <= 0) 
                 {
                     player.GameOver();
                 }
-                
+                if (timePassed < 6f)
+                {
+                    krampusImage.transform.Translate(Vector2.right * 75f * Time.deltaTime);
+                    timePassed += Time.deltaTime;
+                }
+
             }
         }
     }
