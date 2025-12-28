@@ -22,12 +22,15 @@ public class Kitchen : MonoBehaviour, Interactable
             ShowImage(currentIndex); // Panel açýlýnca mevcut durumu göster
             player.canMove = false;
             kitchenPanel.SetActive(true);
+
+            player.timePanel.SetActive(false);
         }
         else
         {
             HideImage();
             player.canMove = true;
             kitchenPanel.SetActive(false);
+            player.timePanel.SetActive(true);
         }
     }
 

@@ -17,13 +17,14 @@ public class Wall : MonoBehaviour , Interactable
             canClean = true;
             player.canMove = false;
             ShowImage();
-
+            player.timePanel.SetActive(false);
         }
         else
         {
             HideImage();
             canClean = false;
             player.canMove = true;
+            player.timePanel.SetActive(true);
         }
     }
     private void Update()
@@ -31,6 +32,7 @@ public class Wall : MonoBehaviour , Interactable
         if (eraesedCount==3) 
         {
             player.taskWall=true;
+            GetComponent<SpriteRenderer>().sprite = null;
         }
     }
 
