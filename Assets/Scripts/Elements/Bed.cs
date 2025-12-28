@@ -4,6 +4,7 @@ using UnityEngine.UI;
 public class Bed : MonoBehaviour,Interactable
 {
     public Image targetBedImage;
+    public GameObject bedPlane;
     public Sprite[] imageArray;
     public Player player;
     private float xPosition,yPosition;
@@ -22,12 +23,16 @@ public class Bed : MonoBehaviour,Interactable
             ShowImage((int)xPosition+(int)yPosition);
             canTidy = true;
             player.canMove = false;
+            bedPlane.SetActive(true);
+            player.timePanel.SetActive(false);
         }
         else
         {
             HideImage();
             canTidy = false;
             player.canMove = true;
+            bedPlane.SetActive (false);
+            player.timePanel.SetActive(true);
         }
     }
 

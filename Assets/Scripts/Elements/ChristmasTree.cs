@@ -25,6 +25,7 @@ public class ChristmasTree : MonoBehaviour, Interactable
             player.canMove = false;
             BacgroundImage.gameObject.SetActive(true);
             christmasPanel.SetActive(true);
+            player.timePanel.SetActive(false);
         }
         else if(!krampus)
         { 
@@ -33,6 +34,7 @@ public class ChristmasTree : MonoBehaviour, Interactable
             player.canMove = true;
             BacgroundImage.gameObject.SetActive(false);
             christmasPanel.SetActive(false);
+            player.timePanel.SetActive(true);
         }
 
     }

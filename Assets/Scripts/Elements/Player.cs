@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     public float speed = 5f;
 
+    public GameObject timePanel;
     private Rigidbody2D _rb;
     private Animator _anim;
     private Vector2 movement;
@@ -18,14 +19,16 @@ public class Player : MonoBehaviour
     public bool canMove = true, notedGrabbed = false;
     public float remainingTime;
 
-    public GameObject gameOverPanel,winOverPanel;
+    public GameObject gameOverPanel,winOverPanel,mainMenuPanel;
     public Button gameOverButton;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
         _anim = GetComponent<Animator>();
-        remainingTime = 20;
+        remainingTime = 50;
+        mainMenuPanel.SetActive(true);
+        canMove=(false);
     }
 
     void Update()
@@ -67,6 +70,7 @@ public class Player : MonoBehaviour
         if (remainingTime < 0)
         {
             GameOver();
+            timePanel.SetActive(false);
         }
         if(taskBed && taskKitchen && taskTree && taskWall)
         {
