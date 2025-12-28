@@ -4,12 +4,12 @@ using UnityEngine.UI;
 using TMPro;
 public class ChristmasTree : MonoBehaviour, Interactable
 {
-    public Image targetImageObject,krampusImage,BacgroundImage;
+    public Image targetImageObject,krampusImage, BacgroundImage;
     public Sprite[] imageArray;
     public Player player;
     public int currentIndex = 0;
     public bool canDecorate, krampus,timeRunning=false;
-    public Sprite finalTree;
+    public GameObject deco1,deco2,deco3,deco4,deco5,christmasPanel;
     private Vector2 startPos, currentPos, differencePos;
     private float xPosition,remainingTime=10, timePassed=0f;
     private void Start()
@@ -24,6 +24,7 @@ public class ChristmasTree : MonoBehaviour, Interactable
             canDecorate = true;
             player.canMove = false;
             BacgroundImage.gameObject.SetActive(true);
+            christmasPanel.SetActive(true);
         }
         else if(!krampus)
         { 
@@ -31,6 +32,7 @@ public class ChristmasTree : MonoBehaviour, Interactable
             canDecorate = false;
             player.canMove = true;
             BacgroundImage.gameObject.SetActive(false);
+            christmasPanel.SetActive(false);
         }
 
     }
@@ -51,7 +53,9 @@ public class ChristmasTree : MonoBehaviour, Interactable
             }
             else if(currentIndex  == imageArray.Length-1) 
             { 
-                GetComponent<SpriteRenderer>().sprite = finalTree;
+                
+                deco3.SetActive(true);
+                deco4.SetActive(true);
                 player.taskTree = true;
             }
             if (krampus) 
@@ -82,6 +86,9 @@ public class ChristmasTree : MonoBehaviour, Interactable
                         currentIndex = currentIndex + (int)xPosition;
                         krampusImage.gameObject.SetActive(false);
                         krampus = false;
+                        deco1.SetActive(true);
+                        deco2.SetActive(true);
+                        deco5.SetActive(true);
                     }
                     remainingTime -= Time.deltaTime;
                 }
@@ -89,9 +96,9 @@ public class ChristmasTree : MonoBehaviour, Interactable
                 {
                     player.GameOver();
                 }
-                if (timePassed < 6f)
+                if (timePassed < 2.5f)
                 {
-                    krampusImage.transform.Translate(Vector2.right * 75f * Time.deltaTime);
+                    krampusImage.transform.Translate(Vector2.right * 1f * Time.deltaTime);
                     timePassed += Time.deltaTime;
                 }
 

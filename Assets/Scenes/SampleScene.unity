@@ -2486,7 +2486,7 @@ GameObject:
   - component: {fileID: 1464916833}
   - component: {fileID: 1464916834}
   m_Layer: 0
-  m_Name: Sus
+  m_Name: DEcoBox
   m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

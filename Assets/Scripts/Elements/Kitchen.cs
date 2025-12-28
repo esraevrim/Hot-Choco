@@ -1,54 +1,68 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Kitchen : MonoBehaviour,Interactable
+public class Kitchen : MonoBehaviour, Interactable
 {
     private bool canWork = false;
-    public Image kitchenImage, plate,jar,table, cookie,milk;
+    public Image kitchenImage, plate, jar, table, cookie, milk;
+    public GameObject kitchenPanel;
     public Sprite[] imageArray;
     public Player player;
-    public int currentIndex =0;
-    public Jar jarController;
+    public int currentIndex = 0;
     public Sprite finalKitchen;
+
     public void Interact()
     {
-        if (canWork == false)
+        canWork = !canWork; // Kýsa yoldan true/false deðiþimi
+
+        if (canWork)
         {
-            ShowImage(currentIndex);
-            canWork = true;
+            ShowImage(currentIndex); // Panel açýlýnca mevcut durumu göster
             player.canMove = false;
+            kitchenPanel.SetActive(true);
         }
         else
         {
             HideImage();
-            canWork = false;
             player.canMove = true;
+            kitchenPanel.SetActive(false);
         }
     }
+
     private void Update()
     {
-        if (canWork == true) {
-            ShowImage(currentIndex);
-        }
-        if(currentIndex == 22)
+        // BURASI TEMÝZLENDÝ. Artýk Update içinde sürekli ShowImage çaðýrmýyoruz.
+
+        // Görev tamamlandý mý kontrolü:
+        if (currentIndex >= 22 && !player.taskKitchen)
         {
             GetComponent<SpriteRenderer>().sprite = finalKitchen;
             player.taskKitchen = true;
         }
     }
 
+    // Plate scripti bu fonksiyonu çaðýracak
+    public void NextStep()
+    {
+        currentIndex++; // Sayýyý artýr
+        ShowImage(currentIndex); // Ve hemen yeni resmi göster
+    }
+
     public void ShowImage(int imageNumber)
     {
-        kitchenImage.sprite = imageArray[imageNumber];
+        if (imageNumber < imageArray.Length)
+        {
+            kitchenImage.sprite = imageArray[imageNumber];
+        }
+
         kitchenImage.gameObject.SetActive(true);
         jar.gameObject.SetActive(true);
-        table.gameObject.SetActive(true); 
+        table.gameObject.SetActive(true);
         plate.gameObject.SetActive(true);
         cookie.gameObject.SetActive(true);
-        milk.gameObject.SetActive(true);    
+        milk.gameObject.SetActive(true);
     }
 
     public void HideImage()
@@ -57,7 +71,7 @@ public class Kitchen : MonoBehaviour,Interactable
         jar.gameObject.SetActive(false);
         table.gameObject.SetActive(false);
         plate.gameObject.SetActive(false);
-        cookie.gameObject.SetActive(false); 
+        cookie.gameObject.SetActive(false);
         milk.gameObject.SetActive(false);
     }
 }
